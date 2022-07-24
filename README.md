@@ -40,7 +40,16 @@ One of the `.env` variables is `PUBLIC`, and is a boolean flag (1 or 0, true or 
 
 The dockerized game server itself is thanks to `mbround18` and the source can be found [here](https://github.com/mbround18/valheim-docker). This dockerized setup allows choosing different types of Valheim play, either `Vanilla` or a form of modded server. It is important to note that all types *other than* `Vanilla` require all connecting clients (players) to configure the corresponding modding client on their machines!
 
+### Volumes and Game Server Files
+
+There are three directories on the server machine that are mounted as volumes for the game server's files, including (if you enable it) the backups of the game world itself. These are the directories you'd want to backup or save to be able to reload your world on another machine, and they are:
+
+* /opt/valheim/server
+* /opt/valheim/saves
+* /opt/valheim/backups
+
 
 ## TODO
 * Use the [mbround18 mods guide](https://github.com/mbround18/valheim-docker/blob/main/docs/tutorials/getting_started_with_mods.md) to configure BepInEx mods on the server
+* Replace `sudo` and root user with another user; on DigitalOcean this will require adding and configurng a new user in the prerequisites steps; also requires adding user to docker group `usermod -aG docker ${USER}`
 * [Run playbook with Vault to encrypt ENV vars like ssh-key](https://docs.ansible.com/ansible/playbooks_vault.html#running-a-playbook-with-vault)

@@ -1,0 +1,14 @@
+---
+# tasks file for terraform
+- name: Create new non-root user
+  user:
+    name: autobot
+    group: sudo
+
+- name: Add SSH key to 'autobot'
+  authorized_keys:
+    user: autobot
+    state: present
+    key: "{{ lookup('env', pub_key) }}"
+
+  

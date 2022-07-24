@@ -17,6 +17,12 @@ Why Ansible?
 
 ## Usage
 
+There are two ways to use this project to setup a Valheim game server:
+
+### 1.a. Ansible only
+
+If you already have a VPS or remote machine setup with SSH access to deploy on, you can use these steps to deploy onto it via Ansible:
+
 1. Copy `.env.example` to `.env` and set the desired values within `.env` for your deploy
 2. Make the `ansible-playbook.sh` script executable
 ```
@@ -28,7 +34,21 @@ $ sudo chmod +x ./ansible-playbook.sh
 $ ./ansible-playbook.sh
 ```
 
-4. TODO -   directions for connecting to game server from Valheim!
+### 1.b. Ansible + Terraform
+#### DigitalOcean Droplet
+
+If you watn to automate both setting up the remote machine to host the game server and deploying the dockerized game server, you can use Terraform + Ansible.
+
+The only provider currently configured it DigitalOcean, which requres configuring the files in `terraform/` as desired and setting the DigitalOcean Personal Access Token (PAT). This setup will also require you to know a little about Terraform and is only for more technical users.
+
+The instructions here are the same, except you run a different playbook using the aptly named script `ansible-terraform-playbook.sh`. The two playbooks are each configured for their respective tasks, so you only need to configure and run the correct script/playbook.
+
+
+### 2. Connect to your server and start playing
+
+WORK IN PROGRESS - NOT YET READY FOR PRODUCTION USAGE
+
+Lastly, you'll want to connect to your game server in Valheim! Read [lloeche's instructions on finding your game server](https://github.com/lloesche/valheim-server-docker#finding-your-server) to connect and start playing.
 
 
 ## Notes

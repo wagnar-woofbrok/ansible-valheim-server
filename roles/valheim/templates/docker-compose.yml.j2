@@ -2,27 +2,38 @@ version: "3"
 
 services:
   valheim:
-    image: mbround18/valheim:latest
+    image: ghcr.io/lloesche/valheim-server:latest
     ports:
       - 2456:2456/udp
       - 2457:2457/udp
       - 2458:2458/udp
+    cap_add:
+      - SYS_NICE
     environment:
-      - PORT={{ lookup("env", "SERVER_PORT") }}
-      - NAME="{{ lookup("env", "SERVER_NAME") }}"
-      - WORLD="{{ lookup("env", "SERVER_WORLD") }}"
-      - PASSWORD={{ lookup("env", "JOIN_WORLD_PASSWORD") }}
+      - SERVER_PORT={{ lookup("env", "SERVER_PORT") }}
+      - SERVER_NAME="{{ lookup("env", "SERVER_NAME") }}"
+      - WORLD_NAME="{{ lookup("env", "WORLD_NAME") }}"
+      - SERVER_PASS={{ lookup("env", "SERVER_PASSWORD") }}
       - TZ={{ lookup("env", "SERVER_TIMEZONE") }}
-      - PUBLIC={{ 1 if lookup("env", "SERVER_IS_PUBLIC") == "true" else 0 }}
-      - TYPE={{ lookup("env", "SERVER_GAME_TYPE") }}
-      - AUTO_UPDATE=0
-      {% if lookup("env", "ENABLE_BACKUPS") == "true" %}- AUTO_BACKUP=1{% else %}- AUTO_BACKUP=0{% endif %}
+      - SERVER_PUBLIC={{ lookup("env", "SERVER_IS_PUBLIC") }}
+      - UPDATE_IF_IDLE=true
+      - RESTART_IF_IDLE=true
+      - BACKUPS={{ lookup("env", "ENABLE_BACKUPS") }}
 
-      {% if lookup("env", "ENABLE_BACKUPS") == "true" %}- AUTO_BACKUP_SCHEDULE="0 * * * *"{% endif %}
+      {% if lookup("env", "ENABLE_BACKUPS") == "true" %}- BACKUPS_CRON="0 * * * *"{% endif %}
 
-      {% if lookup("env", "ENABLE_BACKUPS") == "true" %}- AUTO_BACKUP_DAYS_TO_LIVE=3{% endif %}
+      {% if lookup("env", "ENABLE_BACKUPS") == "true" %}- BACKUPS_MAX_AGE={{ lookup("env", "BACKUPS_MAX_AGE") }}{% endif %}
+
+      {% if lookup("env", "ENABLE_BACKUPS") == "true" %}- BACKUPS_MAX_COUNT={{ lookup("env", "BACKUPS_MAX_COUNT") }}{% endif %}
 
       {% if lookup("env", "ENABLE_BACKUPS") == "true" %}- AUTO_BACKUP_ON_SHUTDOWN=1{% endif %}
+
+      {% if lookup("env", "SERVER_GAME_TYPE") == "ValheimPlus" %}- VALHEIM_PLUS=true{% else %}- VALHEIM_PLUS=false{% endif %}
+
+      {% if lookup("env", "SERVER_GAME_TYPE") == "BepInEx" %}- BEPINEX=true{% else %}- BEPINEX=false{% endif %}
+
+      - VALHEIM_LOG_FILTER_EMPTY=true
+      - VALHEIM_LOG_FILTER_UTF8=true
 
     volumes:
       - ./valheim/saves:/home/steam/.config/unity3d/IronGate/Valheim

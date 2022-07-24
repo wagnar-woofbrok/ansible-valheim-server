@@ -38,7 +38,7 @@ One of the `.env` variables is `PUBLIC`, and is a boolean flag (1 or 0, true or 
 
 ### Server Type and Client Matching
 
-The dockerized game server itself is thanks to `mbround18` and the source can be found [here](https://github.com/mbround18/valheim-docker). This dockerized setup allows choosing different types of Valheim play, either `Vanilla` or a form of modded server. It is important to note that all types *other than* `Vanilla` require all connecting clients (players) to configure the corresponding modding client on their machines!
+The dockerized game server itself is thanks to `lloesche` and the source can be found [here](https://github.com/lloesche/valheim-server-docker). This dockerized setup allows choosing different types of Valheim play, either `Vanilla` or a form of modded server. It is important to note that all types *other than* `Vanilla` require all connecting clients (players) to configure the corresponding modding client on their machines!
 
 ### Volumes and Game Server Files
 
@@ -50,7 +50,9 @@ There are three directories on the server machine that are mounted as volumes fo
 
 
 ## TODO
-* Use the [mbround18 mods guide](https://github.com/mbround18/valheim-docker/blob/main/docs/tutorials/getting_started_with_mods.md) to configure BepInEx mods on the server
+* Follow the [instructions for webhooks + events](https://github.com/lloesche/valheim-server-docker#discord-log-filter-event-hook-example) to configure webhooks to notify #cheddar-goblins; for example, when a player spawns in the world
+* Use the [lloesche directions](https://github.com/lloesche/valheim-server-docker) to configure BepInEx or ValheimPlus mods on the server
 * Firewall! Configure kernel options and UFW rules to lockdown the game server from hacker bois
+* Setup 2nd droplet and rsync to automatically backup game files to backup server
 * Replace `sudo` and root user with another user; on DigitalOcean this will require adding and configurng a new user in the prerequisites steps; also requires adding user to docker group `usermod -aG docker ${USER}`; this should include replacing the SSH user as a non-root user, since DigitalOcean defaults to always using the root user for everything when a droplet is created
 * [Run playbook with Vault to encrypt ENV vars like ssh-key](https://docs.ansible.com/ansible/playbooks_vault.html#running-a-playbook-with-vault)

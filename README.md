@@ -52,5 +52,5 @@ There are three directories on the server machine that are mounted as volumes fo
 ## TODO
 * Use the [mbround18 mods guide](https://github.com/mbround18/valheim-docker/blob/main/docs/tutorials/getting_started_with_mods.md) to configure BepInEx mods on the server
 * Firewall! Configure kernel options and UFW rules to lockdown the game server from hacker bois
-* Replace `sudo` and root user with another user; on DigitalOcean this will require adding and configurng a new user in the prerequisites steps; also requires adding user to docker group `usermod -aG docker ${USER}`
+* Replace `sudo` and root user with another user; on DigitalOcean this will require adding and configurng a new user in the prerequisites steps; also requires adding user to docker group `usermod -aG docker ${USER}`; this should include replacing the SSH user as a non-root user, since DigitalOcean defaults to always using the root user for everything when a droplet is created
 * [Run playbook with Vault to encrypt ENV vars like ssh-key](https://docs.ansible.com/ansible/playbooks_vault.html#running-a-playbook-with-vault)

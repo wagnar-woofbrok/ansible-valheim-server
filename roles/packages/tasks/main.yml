@@ -16,11 +16,7 @@
       # apt-transport-tor
       # - ufw
       
-- name: Remove unnecessary packages
+- name: Remove unnecessary packages and run "apt-get clean"
   ansible.builtin.apt:
     autoclean: yes
     autoremove: yes
-
-- name: Run "apt-get clean"
-  ansible.builtin.apt:
-    clean: yes

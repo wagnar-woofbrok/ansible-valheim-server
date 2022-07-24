@@ -1,0 +1,7 @@
+---
+# tasks file for docker
+
+# start docker on boot
+# sudo systemctl enable docker.service
+# sudo systemctl start docker.service
+# sudo systemctl enable containerd.service

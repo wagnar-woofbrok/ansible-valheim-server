@@ -1,0 +1,6 @@
+- hosts: valheim
+  become: true
+  roles:
+    - packages
+    # - docker
+    # - systemd

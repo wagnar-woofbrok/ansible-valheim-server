@@ -1,0 +1,17 @@
+[Unit]
+Description=Dockerized Valheim game server
+Wants=network.target
+Requires=docker.service
+After=docker.service
+BindsTo=docker.service
+ReloadPropagatedFrom=docker.service
+
+[Service]
+Type=simple
+ExecStart=docker-compose -f /opt/valheim/docker-compose.yml up -d
+ExecReload=docker-compose -f /opt/valheim/docker-compose.yml restart
+ExecStop=docker-compose -f /opt/valheim/docker-compose.yml down
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

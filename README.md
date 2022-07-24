@@ -28,7 +28,15 @@ $ sudo chmod +x ./ansible-playbook.sh
 $ ./ansible-playbook.sh
 ```
 
-4. TODO -   directions for connecting to game server from Valheim!
+This starts the provisioning process and sets the system up, registers the docker-compose services as a SystemD service so it starts on boot after docker, and then begins the process of deploying the game server itself.
+
+If this is the first time (which if you're running Ansible it probably is), then the game world has to be created which can take several minutes or longer. Look for this line in the logs (using `$ docker-compose -f /opt/valheim/docker-compose.yml logs`) to verify the world is ready for players to connect:
+
+```
+valheim-valheim-1  | Jul 24 14:16:58 /supervisord: valheim-server DEBUG - [185] - Server is now listening on UDP port 2456
+```
+
+Once the server is waiting for players to connect, follow [these detailed instructions from lloesche](https://github.com/lloesche/valheim-server-docker#finding-your-server) to find and connect to your game server in Valheim.
 
 
 ## Notes
@@ -55,4 +63,4 @@ There are three directories on the server machine that are mounted as volumes fo
 * Firewall! Configure kernel options and UFW rules to lockdown the game server from hacker bois
 * Setup 2nd droplet and rsync to automatically backup game files to backup server
 * Replace `sudo` and root user with another user; on DigitalOcean this will require adding and configurng a new user in the prerequisites steps; also requires adding user to docker group `usermod -aG docker ${USER}`; this should include replacing the SSH user as a non-root user, since DigitalOcean defaults to always using the root user for everything when a droplet is created
-* [Run playbook with Vault to encrypt ENV vars like ssh-key](https://docs.ansible.com/ansible/playbooks_vault.html#running-a-playbook-with-vault)
+* [Run playbook with Vault to encrypt ENV vars like ssh-key](https://docs.ansible.com/ansible/playbooks_vault.html#running-a-playbook-with-vault); also enable use of ssh-agent in script to allow using ssh private keys that are passphrase protected for connections to Ansible nodes

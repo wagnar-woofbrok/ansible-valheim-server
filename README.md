@@ -10,8 +10,7 @@ Why Ansible?
 
 ## Requirements
 
-1. a VPS/remote server (hereafter called "server") to deploy dockerized game server on
-    1.a. private key SSH access to the server; Ansible does not (seem to) support passwords on keys so don't set one; generate the keys on or move the private key to your local machine
+1. an Ubuntu VPS/remote server (hereafter called "server") to deploy dockerized game server on. Require private key SSH access to the server; Ansible does not (seem to) support passwords on keys so don't set one; generate the keys on or move the private key to your local machine
 2. Local machine running either Bash Linux (debian, ubuntu, etc) or OS X
 3. Install these dependencies on local machine: `python3` and `ansible`
 

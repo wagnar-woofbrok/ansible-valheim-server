@@ -1,5 +1,32 @@
 ---
 # tasks file for docker
+- name: Add Docker GPG apt key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+# - name: Add Docker Repository
+#   apt_repository:
+#     repo: 'deb {{ lookup("env", "ARCH") }} https://download.docker.com/linux/ubuntu {{ lookup("env", "RELEASE") }} stable'
+#     state: present
+
+- name: Add Docker Repository
+  ansible.builtin.shell: echo "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Run apt update to update repo lists used for installing packages
+- name: Run "apt-get update"
+  ansible.builtin.apt:
+    update_cache: yes
+
+- name: Install docker from repository
+  ansible.builtin.apt:
+    name: docker-ce
+    state: latest
+
+- name: Enable and start Docker systemd service
+  ansible.builtin.shell: |
+    sudo systemctl enable docker.service
+    sudo systemctl start docker.service
 
 # start docker on boot
 # sudo systemctl enable docker.service

@@ -16,6 +16,11 @@
       - curl
       # apt-transport-tor
       # - ufw
+
+- name: Upgrade SSH (if applicable)
+  ansible.builtin.apt:
+    pkg: 
+      - ssh
       
 - name: Remove unnecessary packages and run "apt-get clean"
   ansible.builtin.apt:

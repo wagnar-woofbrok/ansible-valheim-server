@@ -3,7 +3,7 @@ set -o nounset -o pipefail -o errexit
 
 # Load variables from .env and export them for Ansible
 set -o allexport
-source "$()/.env"
+source "$(dirname "$0")/.env"
 set +o allexport
 
 # Run (env configured) Ansible Playbook

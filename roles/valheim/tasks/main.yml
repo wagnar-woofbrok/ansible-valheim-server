@@ -1,0 +1,26 @@
+---
+# tasks file for valheim
+
+- name: Create dirs for Valheim game server files
+  ansible.builtin.shell: |
+    mkdir -p /opt/valheim
+
+## process template for docker-compose.yml file
+- name: Process docker-compose.yml file for Valheim server
+  ansible.builtin.template:
+    src: templates/docker-compose.yml.j2
+    dest: /opt/valheim/docker-compose.yml
+    mode: '0755'
+
+## configure systemd on-boot service to run Valheim server
+# process Unit Service template into systemd file on server
+# - name: Install valheim.service unit file
+#   ansible.builtin.template:
+#     src: templates/valheim.service.j2
+#     dest: /etc/systemd/system/valheim.service
+#     mode: '0640'
+
+# - name: Enable and start the dockerized Valheim service
+#   ansible.builtin.shell: |
+#     sudo systemctl enable valheim.service
+#     sudo systemctl start valheim.service

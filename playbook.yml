@@ -3,4 +3,4 @@
   roles:
     - packages
     - docker
-    # - valheim
+    - valheim

@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  valheim:
+    image: mbround18/valheim:latest
+    ports:
+      - 2456:2456/udp
+      - 2457:2457/udp
+      - 2458:2458/udp
+    environment:
+      - PORT={{ lookup("env", "SERVER_PORT") }}
+      - NAME="{{ lookup("env", "SERVER_NAME") }}"
+      - WORLD="{{ lookup("env", "SERVER_WORLD") }}"
+      - PASSWORD={{ lookup("env", "JOIN_WORLD_PASSWORD") }}
+      - TZ={{ lookup("env", "SERVER_TIMEZONE") }}
+      - PUBLIC={{ 1 if lookup("env", "SERVER_IS_PUBLIC") == "true" else 0 }}
+      - TYPE={{ lookup("env", "SERVER_GAME_TYPE") }}
+      - AUTO_UPDATE=0
+      {% if lookup("env", "ENABLE_BACKUPS") == "true" %}- AUTO_BACKUP=1{% else %}- AUTO_BACKUP=0{% endif %}
+
+      {% if lookup("env", "ENABLE_BACKUPS") == "true" %}- AUTO_BACKUP_SCHEDULE="0 * * * *"{% endif %}
+
+      {% if lookup("env", "ENABLE_BACKUPS") == "true" %}- AUTO_BACKUP_DAYS_TO_LIVE=3{% endif %}
+
+      {% if lookup("env", "ENABLE_BACKUPS") == "true" %}- AUTO_BACKUP_ON_SHUTDOWN=1{% endif %}
+
+    volumes:
+      - ./valheim/saves:/home/steam/.config/unity3d/IronGate/Valheim
+      - ./valheim/server:/home/steam/valheim
+      {% if lookup("env", "ENABLE_BACKUPS") == "true" %}- ./valheim/backups:/home/steam/backups{% endif %}

@@ -1,5 +1,6 @@
 - hosts: valheim
-  become: true
+  gather_facts: true
+  become: true  # run as superuser/root
   roles:
     - packages
     - docker

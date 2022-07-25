@@ -3,7 +3,6 @@ Description=Dockerized Valheim game server
 Requires=docker.service
 After=docker.service
 ReloadPropagatedFrom=docker.service
-ConditionPathExists=/opt/valheim/valheim-server
 
 [Service]
 Type=oneshot

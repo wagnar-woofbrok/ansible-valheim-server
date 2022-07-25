@@ -8,34 +8,11 @@ services:
       - 2457:2457/udp
       - 2458:2458/udp
     cap_add:
-      - SYS_NICE
-    environment:
-      - SERVER_PORT={{ lookup("env", "SERVER_PORT") }}
-      - SERVER_NAME="{{ lookup("env", "SERVER_NAME") }}"
-      - WORLD_NAME="{{ lookup("env", "WORLD_NAME") }}"
-      - SERVER_PASS={{ lookup("env", "SERVER_PASSWORD") }}
-      - TZ={{ lookup("env", "SERVER_TIMEZONE") }}
-      - SERVER_PUBLIC={{ lookup("env", "SERVER_IS_PUBLIC") }}
-      - UPDATE_IF_IDLE=true
-      - RESTART_IF_IDLE=true
-      - BACKUPS={{ lookup("env", "ENABLE_BACKUPS") }}
-
-      {% if lookup("env", "ENABLE_BACKUPS") == "true" %}- BACKUPS_CRON="0 * * * *"{% endif %}
-
-      {% if lookup("env", "ENABLE_BACKUPS") == "true" %}- BACKUPS_MAX_AGE={{ lookup("env", "BACKUPS_MAX_AGE") }}{% endif %}
-
-      {% if lookup("env", "ENABLE_BACKUPS") == "true" %}- BACKUPS_MAX_COUNT={{ lookup("env", "BACKUPS_MAX_COUNT") }}{% endif %}
-
-      {% if lookup("env", "ENABLE_BACKUPS") == "true" %}- AUTO_BACKUP_ON_SHUTDOWN=1{% endif %}
-
-      {% if lookup("env", "SERVER_GAME_TYPE") == "ValheimPlus" %}- VALHEIM_PLUS=true{% else %}- VALHEIM_PLUS=false{% endif %}
-
-      {% if lookup("env", "SERVER_GAME_TYPE") == "BepInEx" %}- BEPINEX=true{% else %}- BEPINEX=false{% endif %}
-
-      - VALHEIM_LOG_FILTER_EMPTY=true
-      - VALHEIM_LOG_FILTER_UTF8=true
-
+      - sys_nice
+    env_file:
+      - ./valheim-server/valheim.env
     volumes:
-      - ./valheim/saves:/home/steam/.config/unity3d/IronGate/Valheim
-      - ./valheim/server:/home/steam/valheim
-      {% if lookup("env", "ENABLE_BACKUPS") == "true" %}- ./valheim/backups:/home/steam/backups{% endif %}
+      - ./valheim-server/config:/config
+      - ./valheim-server/data:/opt/valheim
+    restart: always
+    stop_grace_period: 2m

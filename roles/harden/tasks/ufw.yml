@@ -4,7 +4,10 @@
 
 - name: Set firewall rules
   ansible.builtin.shell: |
-    ufw allow 22/tcp
+    ufw reset
+    ufw default deny incoming
+    ufw default deny outgoing
+    ufw allow 22
     ufw allow 2456
     ufw allow 2457
     ufw allow 2458

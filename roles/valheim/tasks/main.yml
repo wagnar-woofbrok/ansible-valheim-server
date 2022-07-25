@@ -4,6 +4,14 @@
 - name: Create dirs for Valheim game server files
   ansible.builtin.shell: |
     mkdir -p /opt/valheim
+    mkdir -p /opt/valheim/valheim-server
+    mkdir -p /opt/valheim/valheim-server/config
+    mkdir -p /opt/valheim/valheim-server/data
+
+- name: Process env_file for valheim server 
+  ansible.builtin.template:
+    src: templates/valheim.env.j2
+    dest: /opt/valheim/valheim-server/valheim.env
 
 ## process template for docker-compose.yml file
 - name: Process docker-compose.yml file for Valheim server

@@ -67,5 +67,6 @@ Big thank you to [lloesche](https://github.com/lloesche/valheim-server-docker#ev
 * Use the [lloesche directions](https://github.com/lloesche/valheim-server-docker) to configure BepInEx or ValheimPlus mods on the server
 * Firewall! Configure kernel options and UFW rules to lockdown the game server from hacker bois
 * Setup 2nd droplet and rsync to automatically backup game files to backup server
+* Review [docs on FluentD + docker-compose](https://docs.fluentd.org/container-deployment/docker-compose) for gathering and using infrastructure logs; ideally, filter logs => Discord webhook notify world events
 * Replace `sudo` and root user with another user; on DigitalOcean this will require adding and configurng a new user in the prerequisites steps; also requires adding user to docker group `usermod -aG docker ${USER}`; this should include replacing the SSH user as a non-root user, since DigitalOcean defaults to always using the root user for everything when a droplet is created
 * [Run playbook with Vault to encrypt ENV vars like ssh-key](https://docs.ansible.com/ansible/playbooks_vault.html#running-a-playbook-with-vault); also enable use of ssh-agent in script to allow using ssh private keys that are passphrase protected for connections to Ansible nodes

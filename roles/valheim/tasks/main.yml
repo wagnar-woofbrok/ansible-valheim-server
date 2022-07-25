@@ -12,6 +12,7 @@
   ansible.builtin.template:
     src: templates/valheim.env.j2
     dest: /opt/valheim/valheim-server/valheim.env
+    mode: '0755'
 
 ## process template for docker-compose.yml file
 - name: Process docker-compose.yml file for Valheim server

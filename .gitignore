@@ -1,2 +1,5 @@
 .env
 tmp/**
+
+# temporary; pureos does not cleanly install terraform
+terraform/**

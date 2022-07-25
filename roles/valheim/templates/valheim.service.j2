@@ -10,7 +10,6 @@ ExecStart=/usr/bin/docker-compose -f /opt/valheim/docker-compose.yml up -d
 ExecReload=/usr/bin/docker-compose -f /opt/valheim/docker-compose.yml restart
 ExecStop=/usr/bin/docker-compose -f /opt/valheim/docker-compose.yml down
 RemainAfterExit=True
-Restart=always
 
 [Install]
 WantedBy=multi-user.target

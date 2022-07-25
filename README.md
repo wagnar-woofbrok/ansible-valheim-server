@@ -57,6 +57,11 @@ There are three directories on the server machine that are mounted as volumes fo
 * /opt/valheim/backups
 
 
+# Special Thanks and Contributions
+
+Big thank you to [lloesche](https://github.com/lloesche/valheim-server-docker#event-hooks) for creating a docker-compose Valheim game server with excellent options!
+
+
 ## TODO
 * Follow the [instructions for webhooks + events](https://github.com/lloesche/valheim-server-docker#discord-log-filter-event-hook-example) to configure webhooks to notify #cheddar-goblins; for example, when a player spawns in the world
 * Use the [lloesche directions](https://github.com/lloesche/valheim-server-docker) to configure BepInEx or ValheimPlus mods on the server
